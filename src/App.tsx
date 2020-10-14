@@ -33,7 +33,7 @@ class App extends React.Component<any, AppState> {
         })
     }
 
-    handleClickItem(i: number, item: Item) {
+    handleChangeDone(i: number, item: Item) {
         const list = this.state.list.slice();
         list[i] = {todo: item.todo, done: !item.done};
         this.setState({
@@ -46,7 +46,7 @@ class App extends React.Component<any, AppState> {
             <div className="App">
                 <Form onKeyDown={(todo: Todo) => this.handleKeyDownAddItem(todo)}/>
                 <List list={this.state.list}
-                      onClick={(i: number, item: Item) => this.handleClickItem(i, item)}/>
+                      onChange={(i: number, item: Item) => this.handleChangeDone(i, item)}/>
             </div>
         );
     }
@@ -61,8 +61,8 @@ class List extends React.Component<any, any> {
         super(props);
     }
 
-    handleClick(i: number, item: Item) {
-        this.props.onClick(i, item)
+    handleChange(i: number, item: Item) {
+        this.props.onChange(i, item)
     }
 
     render() {
@@ -71,11 +71,10 @@ class List extends React.Component<any, any> {
                 <ul>
                     {this.props.list.map((item: Item, i: number) => (
                         <li key={i}>
-                            <label onClick={() => this.handleClick(i, item)}>
+                            <label onChange={() => this.handleChange(i, item)}>
                                 <input type="checkbox"
-                                       defaultChecked={item.done}
-                                />
-                                {item.todo}
+                                       defaultChecked={item.done} />
+                                <span className={item.done ? 'done' : ''}>{item.todo}</span>
                             </label>
                         </li>
                     ))}
