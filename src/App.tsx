@@ -1,12 +1,9 @@
 import React from 'react';
 import './App.css';
-
-type Todo = string;
-
-interface Item {
-    todo: Todo,
-    done: boolean,
-}
+import Item from "./Interfaces/Item";
+import Todo from "./Types/Todo";
+import Form from "./Form";
+import List from "./List";
 
 interface AppState {
     list: Item[]
@@ -47,68 +44,6 @@ class App extends React.Component<any, AppState> {
                 <Form onKeyDown={(todo: Todo) => this.handleKeyDownAddItem(todo)}/>
                 <List list={this.state.list}
                       onChange={(i: number, item: Item) => this.handleChangeDone(i, item)}/>
-            </div>
-        );
-    }
-}
-
-interface ListProps {
-    list: Item[]
-}
-
-class List extends React.Component<any, any> {
-    constructor(props: ListProps) {
-        super(props);
-    }
-
-    handleChange(i: number, item: Item) {
-        this.props.onChange(i, item)
-    }
-
-    render() {
-        return (
-            <div className="List">
-                <ul>
-                    {this.props.list.map((item: Item, i: number) => (
-                        <li key={i}>
-                            <label onChange={() => this.handleChange(i, item)}>
-                                <input type="checkbox"
-                                       defaultChecked={item.done} />
-                                <span className={item.done ? 'done' : ''}>{item.todo}</span>
-                            </label>
-                        </li>
-                    ))}
-                </ul>
-            </div>
-        )
-    }
-}
-
-interface FormProps {
-    list: Item[],
-    onKeyDown: any
-}
-
-class Form extends React.Component<any, any> {
-    constructor(props: FormProps) {
-        super(props);
-    }
-
-    handleKeyDown(e: any) {
-        const enterKeyCode = 13;
-        if (e.keyCode === enterKeyCode) {
-            this.props.onKeyDown(e.currentTarget.value)
-            e.currentTarget.value = '';
-        }
-    }
-
-    render() {
-        return (
-            <div className="Form">
-                <label>
-                    <input className="inputTodo"
-                           onKeyDown={(e) => this.handleKeyDown(e)}/>
-                </label>
             </div>
         );
     }
