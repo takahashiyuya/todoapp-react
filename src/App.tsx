@@ -1,7 +1,12 @@
 import React from 'react';
 import './App.css';
 
-type Item = string;
+type Todo = string;
+
+interface Item {
+    todo: Todo,
+    done: boolean,
+}
 
 interface AppState {
     list: Item[]
@@ -12,18 +17,25 @@ class App extends React.Component<any, AppState> {
         super(props);
         this.state = {
             list: [
-                '顔を洗う',
-                'ベランダに出る',
-                '陽を浴びる',
-                'コーヒーを淹れる',
-                'ニュースを見る'
+                {todo: '顔を洗う', done: true},
+                {todo: 'ベランダで陽を浴びる', done: false},
+                {todo: 'コーヒーを淹れる', done: false},
             ],
         }
     }
 
-    handleKeyDownAddItem(item: Item) {
-        const list = this.state.list.slice();
+    handleKeyDownAddItem(todo: Todo) {
+        const list = this.state.list.slice(),
+            item = {todo: todo, done: false};
         list.push(item)
+        this.setState({
+            list: list
+        })
+    }
+
+    handleClickItem(i: number, item: Item) {
+        const list = this.state.list.slice();
+        list[i] = {todo: item.todo, done: !item.done};
         this.setState({
             list: list
         })
@@ -32,8 +44,9 @@ class App extends React.Component<any, AppState> {
     render() {
         return (
             <div className="App">
-                <Form onKeyDown={(item: Item) => this.handleKeyDownAddItem(item)}/>
-                <Todo list={this.state.list}/>
+                <Form onKeyDown={(todo: Todo) => this.handleKeyDownAddItem(todo)}/>
+                <List list={this.state.list}
+                      onClick={(i: number, item: Item) => this.handleClickItem(i, item)}/>
             </div>
         );
     }
@@ -43,16 +56,33 @@ interface ListProps {
     list: Item[]
 }
 
-function Todo(props: ListProps) {
-    return (
-        <div className="Todo">
-            <ul>
-                {props.list.map((item, number) => (
-                    <li key={number}>{item}</li>
-                ))}
-            </ul>
-        </div>
-    )
+class List extends React.Component<any, any> {
+    constructor(props: ListProps) {
+        super(props);
+    }
+
+    handleClick(i: number, item: Item) {
+        this.props.onClick(i, item)
+    }
+
+    render() {
+        return (
+            <div className="List">
+                <ul>
+                    {this.props.list.map((item: Item, i: number) => (
+                        <li key={i}>
+                            <label onClick={() => this.handleClick(i, item)}>
+                                <input type="checkbox"
+                                       defaultChecked={item.done}
+                                />
+                                {item.todo}
+                            </label>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        )
+    }
 }
 
 interface FormProps {
@@ -77,10 +107,8 @@ class Form extends React.Component<any, any> {
         return (
             <div className="Form">
                 <label>
-                    <input
-                        onKeyDown={(e) => this.handleKeyDown(e)}
-                        className="inputTodo"
-                    />
+                    <input className="inputTodo"
+                           onKeyDown={(e) => this.handleKeyDown(e)}/>
                 </label>
             </div>
         );
