@@ -15,7 +15,6 @@ class App extends React.Component<any, AppState> {
                 '顔を洗う',
                 'ベランダに出る',
                 '陽を浴びる',
-                'ストレッチor筋トレ',
                 'コーヒーを淹れる',
                 'ニュースを見る'
             ],
