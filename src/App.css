@@ -1,8 +1,9 @@
 .App {
+    margin: 10px;
 }
 
 .Form {
-    margin: 50px 0 50px 15px;
+    margin: 25px 0;
 }
 
 .Form .inputTodo {
@@ -21,4 +22,8 @@
 
 .List input[type=checkbox] {
     margin-right: 10px;
+}
+
+.Progress {
+    font-size: 18px;
 }

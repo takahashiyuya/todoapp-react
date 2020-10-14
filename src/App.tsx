@@ -4,6 +4,7 @@ import Item from "./Interfaces/Item";
 import Todo from "./Types/Todo";
 import Form from "./Form";
 import List from "./List";
+import Progress from "./Progress";
 
 interface AppState {
     list: Item[]
@@ -44,6 +45,7 @@ class App extends React.Component<any, AppState> {
                 <Form onKeyDown={(todo: Todo) => this.handleKeyDownAddItem(todo)}/>
                 <List list={this.state.list}
                       onChange={(i: number, item: Item) => this.handleChangeDone(i, item)}/>
+                <Progress list={this.state.list}/>
             </div>
         );
     }
