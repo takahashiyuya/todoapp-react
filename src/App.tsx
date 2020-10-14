@@ -22,10 +22,18 @@ class App extends React.Component<any, AppState> {
         }
     }
 
+    handleKeyDownAddItem(item: Item) {
+        const list = this.state.list.slice();
+        list.push(item)
+        this.setState({
+            list: list
+        })
+    }
+
     render() {
         return (
             <div className="App">
-                <Form/>
+                <Form onKeyDown={(item: Item) => this.handleKeyDownAddItem(item)}/>
                 <Todo list={this.state.list}/>
             </div>
         );
@@ -48,15 +56,20 @@ function Todo(props: ListProps) {
     )
 }
 
+interface FormProps {
+    list: Item[],
+    onKeyDown: any
+}
+
 class Form extends React.Component<any, any> {
-    constructor(props: any) {
+    constructor(props: FormProps) {
         super(props);
     }
 
     handleKeyDown(e: any) {
         const enterKeyCode = 13;
         if (e.keyCode === enterKeyCode) {
-            console.log(this.props)
+            this.props.onKeyDown(e.currentTarget.value)
         }
     }
 
