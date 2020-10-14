@@ -48,8 +48,8 @@ function Todo(props: ListProps) {
     return (
         <div className="Todo">
             <ul>
-                {props.list.map(item => (
-                    <li key={item}>{item}</li>
+                {props.list.map((item, number) => (
+                    <li key={number}>{item}</li>
                 ))}
             </ul>
         </div>
@@ -70,6 +70,7 @@ class Form extends React.Component<any, any> {
         const enterKeyCode = 13;
         if (e.keyCode === enterKeyCode) {
             this.props.onKeyDown(e.currentTarget.value)
+            e.currentTarget.value = '';
         }
     }
 
