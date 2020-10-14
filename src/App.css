@@ -1,29 +1,3 @@
 .App {
     margin: 10px;
 }
-
-.Form {
-    margin: 25px 0;
-}
-
-.Form .inputTodo {
-    font-size: 24px;
-    padding: 10px;
-}
-
-.List {
-    font-size: 24px;
-    line-height: 1.5em;
-}
-
-.List .done {
-    text-decoration: line-through;
-}
-
-.List input[type=checkbox] {
-    margin-right: 10px;
-}
-
-.Progress {
-    font-size: 18px;
-}

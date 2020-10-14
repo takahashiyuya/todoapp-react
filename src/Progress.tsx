@@ -1,5 +1,6 @@
 import React from 'react';
 import Item from "./Interfaces/Item";
+import './Progress.css';
 
 interface ProgressProps {
     list: Item[]

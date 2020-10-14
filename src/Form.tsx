@@ -1,5 +1,6 @@
 import React from 'react';
 import Item from "./Interfaces/Item";
+import './Form.css';
 
 interface FormProps {
     list: Item[],

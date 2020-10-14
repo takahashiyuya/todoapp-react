@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import Item from "./Interfaces/Item";
+import './List.css';
 
 interface ListProps {
     list: Item[]

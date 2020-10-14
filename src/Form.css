@@ -1,0 +1,8 @@
+.Form {
+    margin: 25px 0;
+}
+
+.Form .inputTodo {
+    font-size: 24px;
+    padding: 10px;
+}
